@@ -1,55 +1,49 @@
 const mongoose = require("mongoose");
 
 const CatalogueSchema = new mongoose.Schema({
-  // objeto de serie anime
-  // nombre: {
-  //   type: String,
-  //   required: true,
-  // },
-  // descripcion: {
-  //   type: String,
-  //   required: true,
-  // },
-  // imagen: {
-  //   type: String,
-  //   required: true,
-  // },
-  // genero: {
-  //   type: String,
-  //   required: true,
-  // },
-  // estado: {
-  //   type: String,
-  //   required: true,
-  // },
-  // temporadas: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // capitulos: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // episodios: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // fecha_estreno: {
-  //   type: Date,
-  //   required: true,
-  // },
-  // fecha_fin: {
-  //   type: Date,
-  //   required: true,
-  // },
-  // duracion: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // calificacion: {
-  //   type: Number,
-  //   required: true,
-  // },
+  // Anime Serie Schema
+  /* 
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  episodes: {
+    type: Number,
+    required: true,
+  },
+    duration: {
+    type: Number,
+    required: true,
+  },
+    seasons: {
+    type: Number,
+    required: true,
+  },
+  release_date: {
+    type: Date,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  genres: {
+    type: [String],
+    required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  */
 });
 
 const CatalogueModel = mongoose.model("Catalogue", CatalogueSchema);

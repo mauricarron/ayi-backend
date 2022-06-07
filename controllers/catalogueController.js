@@ -2,7 +2,7 @@ const Catalogue = require("../models/catalogueModel");
 
 const getAllCatalogue = (req, res) => {
   // const catalogo = await Catalogue.find();
-  //   Catalogue.find({}, (err, data) => {
+  // catalogo.find({}, (err, data) => {
   //   if (err) {
   //     res.status(500).send(err);
   //   } else {
