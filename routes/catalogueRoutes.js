@@ -1,14 +1,14 @@
 const express = require("express");
 const {
-  getAllCatalogue,
+  getAllCatalogueController,
   postCatalogueController,
   updateCatalogueController,
   deleteCatalogueController,
 } = require("../controllers/CatalogueController");
 
-const app = express();
+const app = express.Router();
 
-app.get("/", getAllCatalogue);
+app.get("/", getAllCatalogueController);
 
 app.post("/", postCatalogueController);
 
