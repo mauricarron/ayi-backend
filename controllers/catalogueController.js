@@ -1,6 +1,6 @@
-const Catalogue = require("../models/catalogueModel");
+const CatalogueModel = require("../models/catalogueModel");
 
-const getAllCatalogue = (req, res) => {
+const getAllCatalogueController = (req, res) => {
   // const catalogo = await Catalogue.find();
   // catalogo.find({}, (err, data) => {
   //   if (err) {
@@ -43,7 +43,7 @@ const updateCatalogueController = (req, res) => {
 const deleteCatalogueController = (req, res) => {};
 
 module.exports = {
-  getAllCatalogue,
+  getAllCatalogueController,
   postCatalogueController,
   updateCatalogueController,
   deleteCatalogueController,
