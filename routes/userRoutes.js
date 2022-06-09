@@ -11,6 +11,6 @@ app.post("/signup", userSignupController);
 
 app.post("/login", userLoginController);
 
-app.post("/logout", userLogoutController);
+app.get("/logout", userLogoutController);
 
 module.exports = app;
