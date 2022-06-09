@@ -1,6 +1,9 @@
 const UserModel = require("../models/userModel");
 
-const userSignupController = (req, res) => {};
+const userSignupController = (req, res) => {
+  console.log(req.body);
+  res.send("OK");
+};
 
 const userLoginController = (req, res) => {};
 
