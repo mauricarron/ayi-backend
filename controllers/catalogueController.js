@@ -24,20 +24,18 @@ const postCatalogueController = (req, res) => {
 };
 
 const updateCatalogueController = (req, res) => {
-  const { id, ...data } = req.body;
-  if (!validator.isMongoId(id)) {
-    res.status(400).send("El id no es valido");
-    return;
-  }
-
+  // const { id, ...data } = req.body;
+  // if (!validator.isMongoId(id)) {
+  //   res.status(400).send("El id no es valido");
+  //   return;
+  // }
   /*
   const producto = await Catalogue.find({_id: id});
 
   producto.update({$set: {nombre: data.nombre}})
 
   */
-
-  res.send("Actualizado");
+  // res.send("Actualizado");
 };
 
 const deleteCatalogueController = (req, res) => {};
