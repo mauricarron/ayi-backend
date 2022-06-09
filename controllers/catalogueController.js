@@ -1,44 +1,58 @@
 const CatalogueModel = require("../models/catalogueModel");
 
-const getAllCatalogueController = (req, res) => {
-  // const catalogo = await Catalogue.find();
-  // catalogo.find({}, (err, data) => {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   } else {
-  //     res.status(200).send(data);
-  //   }
-  // });
+const getAllCatalogueController = async (req, res) => {
+  try {
+    const catalogue = await CatalogueModel.find();
+    res.send(catalogue);
+  } catch (err) {
+    res.status(500).send("Could not get catalogue: ", err);
+  }
 };
 
-const postCatalogueController = (req, res) => {
+const postCatalogueController = async (req, res) => {
   // validar body con validator
-  // const nuevo_catalogo = new Catalogue(req.body);
-  // nuevo_catalogo.save()
-  //   .then((data) => {
-  //     res.status(200).send(data);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send(err);
-  //   });
+  try {
+    const newCatalogue = new CatalogueModel(req.body);
+    await newCatalogue.save();
+
+    res.send("Catalogue created:" + newCatalogue);
+  } catch (err) {
+    res.status(500).send("Could not create catalogue: ", err);
+  }
 };
 
-const updateCatalogueController = (req, res) => {
-  // const { id, ...data } = req.body;
-  // if (!validator.isMongoId(id)) {
-  //   res.status(400).send("El id no es valido");
-  //   return;
-  // }
-  /*
-  const producto = await Catalogue.find({_id: id});
+const updateCatalogueController = async (req, res) => {
+  const catalogueToUpdate = {
+    name: "One Piece",
+    episodes: 1025,
+    status: "Finished",
+  };
 
-  producto.update({$set: {nombre: data.nombre}})
+  const { name, status, episodes } = req.body;
+  try {
+    const catalogue = await CatalogueModel.findOneAndUpdate(
+      { name },
+      { $set: { status, episodes } },
+      { returnNewDocument: true }
+    );
 
-  */
-  // res.send("Actualizado");
+    res.send("Catalogue updated: " + catalogue);
+  } catch (err) {
+    res.status(500).send("Could not update catalogue: ", err);
+  }
 };
 
-const deleteCatalogueController = (req, res) => {};
+const deleteCatalogueController = async (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const catalogue = await CatalogueModel.findOneAndDelete({ name });
+
+    res.send("Catalogue deleted: " + catalogue);
+  } catch (err) {
+    res.status(500).send("Could not delete catalogue: ", err);
+  }
+};
 
 module.exports = {
   getAllCatalogueController,
