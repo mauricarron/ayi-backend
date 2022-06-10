@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   getAllCatalogueController,
+  getByNameCatalogueController,
   postCatalogueController,
   updateCatalogueController,
   deleteCatalogueController,
@@ -9,6 +10,8 @@ const {
 const app = express.Router();
 
 app.get("/", getAllCatalogueController);
+
+app.get("/:name", getByNameCatalogueController);
 
 app.post("/", postCatalogueController);
 

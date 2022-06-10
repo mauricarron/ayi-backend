@@ -1,47 +1,159 @@
+const validator = require("validator");
 const CatalogueModel = require("../models/catalogueModel");
 
-const getAllCatalogueController = (req, res) => {
-  // const catalogo = await Catalogue.find();
-  // catalogo.find({}, (err, data) => {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   } else {
-  //     res.status(200).send(data);
-  //   }
-  // });
+const getAllCatalogueController = async (req, res) => {
+  try {
+    const catalogue = await CatalogueModel.find();
+    res.send;
+    res.send({
+      error: false,
+      message: "All Catalogue Found",
+      data: { catalogue },
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: true,
+      message: "Couldn't get all catalogue",
+      data: { err },
+    });
+  }
 };
 
-const postCatalogueController = (req, res) => {
-  // validar body con validator
-  // const nuevo_catalogo = new Catalogue(req.body);
-  // nuevo_catalogo.save()
-  //   .then((data) => {
-  //     res.status(200).send(data);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).send(err);
-  //   });
+const getByNameCatalogueController = async (req, res) => {
+  const { name } = req.params;
+
+  if (!name || !validator.isAlpha(name)) {
+    res
+      .status(400)
+      .send({ error: true, message: "Invalid name on params", data: {} });
+    return;
+  }
+
+  try {
+    const catalogue = await CatalogueModel.find({ name });
+
+    res.send({ error: false, message: "Catalogue Found", data: { catalogue } });
+  } catch (err) {
+    res.status(500).send({
+      error: true,
+      message: "Could not get catalogue: ",
+      data: { err },
+    });
+  }
 };
 
-const updateCatalogueController = (req, res) => {
-  // const { id, ...data } = req.body;
-  // if (!validator.isMongoId(id)) {
-  //   res.status(400).send("El id no es valido");
-  //   return;
-  // }
-  /*
-  const producto = await Catalogue.find({_id: id});
+const postCatalogueController = async (req, res) => {
+  if (
+    !validator.isAlpha(req.body.name) ||
+    !validator.isNumeric(req.body.duration) ||
+    !validator.isAlpha(req.body.season) ||
+    !validator.isAlpha(req.body.status) ||
+    !validator.isAlpha(req.body.genres)
+  ) {
+    res.status(400).send({
+      error: true,
+      message: "Invalid data on body",
+      data: {},
+    });
+    return;
+  }
 
-  producto.update({$set: {nombre: data.nombre}})
+  try {
+    const newCatalogue = new CatalogueModel(req.body);
+    await newCatalogue.save();
 
-  */
-  // res.send("Actualizado");
+    res.send({
+      error: false,
+      message: "Catalogue created:",
+      data: { newCatalogue },
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: true,
+      message: "Could not create catalogue: ",
+      data: { err },
+    });
+  }
 };
 
-const deleteCatalogueController = (req, res) => {};
+const updateCatalogueController = async (req, res) => {
+  const { id, status, episodes } = req.body;
+
+  if (!id || !status || !episodes) {
+    res.status(400).send({
+      error: true,
+      message: "Invalid data on body",
+      data: {},
+    });
+    return;
+  }
+
+  if (
+    !validator.isMongoId(id) ||
+    !validator.isAlpha(status) ||
+    !validator.isNumeric(episodes)
+  ) {
+    res.status(400).send({
+      error: true,
+      message: "Invalid data on body",
+      data: {},
+    });
+    return;
+  }
+
+  try {
+    const catalogue = await CatalogueModel.findByIdAndUpdate(
+      { _id: id },
+      { $set: { status, episodes } },
+      { returnNewDocument: true }
+    );
+
+    res.send({
+      error: false,
+      message: "Catalogue updated: ",
+      data: { catalogue },
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: true,
+      message: "Could not update catalogue: ",
+      data: { err },
+    });
+  }
+};
+
+const deleteCatalogueController = async (req, res) => {
+  const { id } = req.body;
+
+  if (!id || !validator.isMongoId(id)) {
+    res.status(400).send({
+      error: true,
+      message: "Invalid data on body",
+      data: {},
+    });
+    return;
+  }
+
+  try {
+    const catalogue = await CatalogueModel.findByIdAndDelete({ id });
+
+    res.send({
+      error: false,
+      message: "Catalogue deleted: ",
+      data: { catalogue },
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: true,
+      message: "Could not delete catalogue: ",
+      data: { err },
+    });
+  }
+};
 
 module.exports = {
   getAllCatalogueController,
+  getByNameCatalogueController,
   postCatalogueController,
   updateCatalogueController,
   deleteCatalogueController,
