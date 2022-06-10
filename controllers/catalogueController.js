@@ -20,6 +20,17 @@ const getAllCatalogueController = async (req, res) => {
 };
 
 const getByNameCatalogueController = async (req, res) => {
+  const isUserLogged = req.cookies.jwtToken;
+
+  if (!isUserLogged) {
+    res.status(500).send({
+      error: true,
+      message: "You must be logged in to see this page.",
+      data: {},
+    });
+    return;
+  }
+
   const { name } = req.params;
 
   if (!name || !validator.isAlpha(name)) {
@@ -43,6 +54,17 @@ const getByNameCatalogueController = async (req, res) => {
 };
 
 const postCatalogueController = async (req, res) => {
+  const isUserLogged = req.cookies.jwtToken;
+
+  if (!isUserLogged) {
+    res.status(500).send({
+      error: true,
+      message: "You must be logged in to see this page.",
+      data: {},
+    });
+    return;
+  }
+
   if (
     !validator.isAlpha(req.body.name) ||
     !validator.isNumeric(req.body.duration) ||
@@ -77,6 +99,17 @@ const postCatalogueController = async (req, res) => {
 };
 
 const updateCatalogueController = async (req, res) => {
+  const isUserLogged = req.cookies.jwtToken;
+
+  if (!isUserLogged) {
+    res.status(500).send({
+      error: true,
+      message: "You must be logged in to see this page.",
+      data: {},
+    });
+    return;
+  }
+
   const { id, status, episodes } = req.body;
 
   if (!id || !status || !episodes) {
@@ -123,6 +156,17 @@ const updateCatalogueController = async (req, res) => {
 };
 
 const deleteCatalogueController = async (req, res) => {
+  const isUserLogged = req.cookies.jwtToken;
+
+  if (!isUserLogged) {
+    res.status(500).send({
+      error: true,
+      message: "You must be logged in to see this page.",
+      data: {},
+    });
+    return;
+  }
+
   const { id } = req.body;
 
   if (!id || !validator.isMongoId(id)) {

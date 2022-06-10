@@ -9,13 +9,13 @@ const userSignupController = async (req, res) => {
   if (!username || !password || !email) {
     res.status(400).send({
       error: true,
-      message: "Invalid data on body",
+      message: "Missing username, password or email",
       data: {},
     });
     return;
   }
 
-  if (!validator.isEmail(email) || !validator.isAlpha(username)) {
+  if (!(validator.isEmail(email) || validator.isAlpha(username))) {
     res.status(400).send({
       error: true,
       message: "Invalid username or password",
@@ -48,6 +48,7 @@ const userSignupController = async (req, res) => {
 };
 
 const userLoginController = async (req, res) => {
+  console.log(req.cookies);
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -93,9 +94,8 @@ const userLoginController = async (req, res) => {
       const token = jwt.sign({ username }, process.env.JWT_SECRETKEY);
 
       res.cookie("jwtToken", token, { maxAge: 5 * 60 * 60 * 1000 });
+      res.send({ error: false, message: "User logged in", data: { username } });
     });
-
-    res.send({ error: false, message: "User logged in", data: { username } });
   } catch (err) {
     res
       .status(500)
