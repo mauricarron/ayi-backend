@@ -89,3 +89,22 @@ const animeCatalogue5 = {
   status: "Finished",
   genres: ["Action", "Adventure", "Comedy"],
 };
+
+// Fake Anime Stats Data
+const animeStats1 = {
+  name: "Naruto",
+  rating: 5,
+  comments: ["This is a great anime!", "I love this anime!"],
+};
+
+const animeStats2 = {
+  name: "One Piece",
+  rating: 4,
+  comments: ["This is a great anime!", "I love this anime!"],
+};
+
+const animeStats3 = {
+  name: "Attack on Titan",
+  rating: 3,
+  comments: ["This is a great anime!", "I love this anime!"],
+};
