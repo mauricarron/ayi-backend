@@ -1,6 +1,7 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const catalogueRoute = require("./routes/catalogueRoutes");
 const userRoute = require("./routes/userRoutes");
 const statsRoutes = require("./routes/statsRoutes");
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // ROUTES
 app.use("/", userRoute);
