@@ -4,7 +4,6 @@ const CatalogueModel = require("../models/catalogueModel");
 const getAllCatalogueController = async (req, res) => {
   try {
     const catalogue = await CatalogueModel.find();
-    res.send;
     res.send({
       error: false,
       message: "All Catalogue Found",
