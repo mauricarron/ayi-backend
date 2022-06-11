@@ -48,7 +48,6 @@ const userSignupController = async (req, res) => {
 };
 
 const userLoginController = async (req, res) => {
-  console.log(req.cookies);
   const { username, password } = req.body;
 
   if (!username || !password) {

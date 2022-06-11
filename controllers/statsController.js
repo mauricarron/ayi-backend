@@ -127,7 +127,6 @@ const updateStatsController = async (req, res) => {
   }
 
   if (!(validator.isMongoId(id) || validator.isNumeric(rating))) {
-    console.log("corta en validator");
     res.status(400).send({
       error: true,
       message: "Invalid data on body",
